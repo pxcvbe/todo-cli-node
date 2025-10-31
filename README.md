@@ -28,3 +28,4 @@ node index.js list
 - [ ] Mark as complete
 - [ ] Filter tasks
 - [ ] Due dates
+- [ ] Priority levels
