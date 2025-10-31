@@ -6,6 +6,7 @@ A simple yet powerful command-line todo list manager built with Node.js by Ivan 
 ```bash
 git clone https://github.com/pxcvbe/todo-cli-node.git
 ```
+**Or you can just download the _.zip_ files 👌**
 
 ## Installation
 ```bash
