@@ -30,3 +30,4 @@ node index.js list
 - [ ] Due dates
 - [ ] Priority levels
 - [ ] Categories/Tags
+- [ ] Search tasks
