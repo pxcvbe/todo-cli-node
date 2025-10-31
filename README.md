@@ -29,3 +29,4 @@ node index.js list
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
+- [ ] Categories/Tags
