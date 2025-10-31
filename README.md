@@ -23,3 +23,4 @@ node index.js list
 
 ## Features
 - [ ] Add tasks
+- [ ] List tasks
