@@ -26,3 +26,4 @@ node index.js list
 - [ ] List tasks
 - [ ] Delete tasks
 - [ ] Mark as complete
+- [ ] Filter tasks
