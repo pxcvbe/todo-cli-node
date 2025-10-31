@@ -25,3 +25,4 @@ node index.js list
 - [ ] Add tasks
 - [ ] List tasks
 - [ ] Delete tasks
+- [ ] Mark as complete
