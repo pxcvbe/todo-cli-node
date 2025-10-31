@@ -20,3 +20,6 @@ or to get the tasks list
 ```bash
 node index.js list
 ```
+
+## Features
+- [ ] Add tasks
