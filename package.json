@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["cli", "todo", "task", "productivity"],
+  "author": "Ivan K",
   "license": "ISC",
-  "description": ""
+  "description": "Simple and powerful CLI Todo List manager"
 }
