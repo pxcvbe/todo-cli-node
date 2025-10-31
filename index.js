@@ -8,16 +8,17 @@ if (!fs.existsSync(DATA_FILE)) {
     fs.writeFileSync(DATA_FILE, JSON.stringify([], null, 2));
 }
 
-// Helper functions
+// Helper functions -- muat todos
 function loadTodos() {
     const data = fs.readFileSync(DATA_FILE, 'utf-8');
     return JSON.parse(data);
 }
-
+// Helper functions -- simpan todos
 function saveTodos(todos) {
     fs.writeFileSync(DATA_FILE, JSON.stringify(todos, null, 2));
 }
 
+// Functions - tambah tugas
 function addTask(description) {
     if (!description || description.trim() === '') {
         console.error("Error: Task description cannot be empty!");
@@ -40,6 +41,7 @@ function addTask(description) {
     console.log(`Task: ${newTodo.description}`);
 }
 
+// Function - list tugas
 function listTasks() {
     const todos = loadTodos();
 
