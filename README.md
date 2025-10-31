@@ -22,7 +22,7 @@ node index.js list
 ```
 
 ## Features
-- [ ] Add tasks
+- ✅ Add tasks
 - [ ] List tasks
 - [ ] Delete tasks
 - [ ] Mark as complete
