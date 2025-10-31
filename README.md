@@ -16,7 +16,7 @@ npm install
 ```bash
 node index.js add "Cooking water for 12 minutes"
 ```
-or
+or to get the tasks list
 ```bash
 node index.js list
 ```
