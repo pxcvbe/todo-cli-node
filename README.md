@@ -13,13 +13,18 @@ git clone https://github.com/pxcvbe/todo-cli-node.git
 npm install
 ```
 
-## Usage
+## Usage (Example)
+#### Add Task:
 ```bash
 node index.js add "Cooking water for 12 minutes"
 ```
-or to get the tasks list
+#### List Task:
 ```bash
 node index.js list
+```
+#### Delete Task:
+```bash
+node index.js delete <id>
 ```
 
 ## Features
