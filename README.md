@@ -40,7 +40,7 @@ node index.js list
 - ✅ List tasks
 - ✅ Delete tasks
 - ✅ Mark as complete
-- [ ] Update / Edit tasks
+- ✅ Update / Edit tasks
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
