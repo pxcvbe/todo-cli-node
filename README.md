@@ -31,7 +31,7 @@ node index.js delete <id>
 - ✅ Add tasks
 - ✅ List tasks
 - ✅ Delete tasks
-- [ ] Mark as complete
+- ✅ Mark as complete
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
