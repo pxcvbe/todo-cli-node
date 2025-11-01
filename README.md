@@ -14,15 +14,15 @@ npm install
 ```
 
 ## Usage (Example)
-#### Add Task:
+#### 🚀 Add Task:
 ```bash
 node index.js add "Cooking water for 12 minutes"
 ```
-#### List Task:
+#### 📋 List Task:
 ```bash
 node index.js list
 ```
-#### Delete Task:
+#### 🗑️ Delete Task:
 ```bash
 node index.js delete <id>
 ```
