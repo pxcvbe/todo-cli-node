@@ -116,4 +116,5 @@ switch (command) {
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo list');
+        console.log('   todo delete <id>');
 }
