@@ -204,7 +204,7 @@ switch (command) {
         console.log(' • todo list                                - Show all tasks');
         console.log(' • todo delete / remove / rm <id>           - Delete task by ID');
         console.log(' • todo done / completed / finish <id>      - Mark task as complete');
-        console.log(' • todo update <id> <new description></new> - Update task');
+        console.log(' • todo update <id> <new description>       - Update task');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
