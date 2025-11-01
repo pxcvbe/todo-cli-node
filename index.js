@@ -125,6 +125,45 @@ function completeTask(taskId) {
     console.log(`   ✓ ${task.description}`);
 }
 
+// Function - memperbarui / mengubah tugas
+function updateTask(taskId, newDescription) {
+    if (!taskId) {
+        console.log('Error: Please provide a task ID!');
+        console.log('   Usage: todo update <id> <new description>');
+        return;
+    }
+
+    if (!newDescription || newDescription.trim() === '') {
+        console.log('Error: New description cannot be empty!');
+        console.log('   Usage: todo update <id> <new description>');
+        return;
+    }
+
+    const id = parseInt(taskId);
+    if (isNaN(id)) {
+        console.log('Error: Invalid task ID! ID must be a number.');
+        return;
+    }
+
+    const todos = loadTodos();
+    const task = todos.find(todo => todo.id === id);
+
+    if (!task) {
+        console.log(`Error: Task with ID ${id} not found!`);
+        console.log('   Use "todo list" to see all tasks.');
+        return;
+    }
+
+    const oldDescription = task.description;
+    task.description = newDescription.trim();
+    task.updateAt = new Date().toISOString();
+    saveTodos(todos);
+
+    console.log('✏️ Task updated successfully');
+    console.log(`   Old: ${oldDescription}`);
+    console.log(`   New: ${newDescription}`);
+}
+
 // Command parser
 const command = process.argv[2];
 const args = process.argv.slice(3);
@@ -151,19 +190,28 @@ switch (command) {
         completeTask(args[0]);
         break;
 
+    case 'update':
+    case 'edit':
+        const newDesc = args.slice(1).join(' ');
+        updateTask(args[0], newDesc);
+        break;
+
     default:
         console.log('------------------------------------------------------------------');
         console.log('📝 Todo CLI - Simple Task Manager\n');
         console.log('Usage:');
-        console.log(' • todo add <task>    - Add new task');
-        console.log(' • todo list          - Show all tasks');
-        console.log(' • todo delete / remove / rm <id>          - Delete task by ID');
-        console.log(' • todo done / completed / finish <id>     - Mark task as complete');
+        console.log(' • todo add <task>                          - Add new task');
+        console.log(' • todo list                                - Show all tasks');
+        console.log(' • todo delete / remove / rm <id>           - Delete task by ID');
+        console.log(' • todo done / completed / finish <id>      - Mark task as complete');
+        console.log(' • todo update <id> <new description></new> - Update task');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo list');
         console.log('   todo done 1730448000000')
+        console.log('   todo delete 1730448000000');
+        console.log('   todo update 1730448000000 "Buy groceries at Indomaret"');
         console.log('   todo delete 1730448000000');
         console.log();
 }
