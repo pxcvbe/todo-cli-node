@@ -24,7 +24,9 @@ node index.js list
 ```
 #### 📋 Complete Task (Mark as Complete):
 ```bash
-node index.js done <id>
+• node index.js done <id>
+• node index.js completed <id>
+• node index.js finish <id>
 ```
 #### 🗑️ Delete Task:
 ```bash
