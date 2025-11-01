@@ -24,8 +24,8 @@ node index.js list
 
 ## Features
 - ✅ Add tasks
-- [ ] List tasks
-- [ ] Delete tasks
+- ✅ List tasks
+- ✅ Delete tasks
 - [ ] Mark as complete
 - [ ] Filter tasks
 - [ ] Due dates
