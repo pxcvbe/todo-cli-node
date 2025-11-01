@@ -58,6 +58,7 @@ function listTasks() {
     console.log(``);
 }
 
+// Function - hapus tugas
 function deleteTask(taskId) {
     if (!taskId) {
         console.log('Error: Please provide a task ID!');
