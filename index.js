@@ -88,6 +88,7 @@ function deleteTask(taskId) {
     console.log(`✅ Deleted: ${deletedTask.description}`);
 }
 
+// Function - tugas selesai (dengan status ditandai ✓)
 function completeTask(taskId) {
     if (!taskId) {
         console.log('Error: Please povide a task ID!');
