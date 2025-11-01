@@ -58,6 +58,35 @@ function listTasks() {
     console.log(``);
 }
 
+function deleteTask(taskId) {
+    if (!taskId) {
+        console.log('Error: Please provide a task ID!');
+        console.log('   Usage: todo delete <id>');
+        return;
+    }
+
+    const id = parseInt(taskId);
+    if (isNaN(id)) {
+        console.log('Error: Invalid task ID! ID must be a number.');
+    }
+
+    const todos = loadTodos();
+    const taskIndex = todos.findIndex(todo => todo.id === id);
+
+    if (taskIndex === -1) {
+        console.log(`Error: Task with ID ${id} not found!`);
+        console.log('   Use "todo list" to see all tasks.');
+        return;
+    }
+
+    const deletedTask = todos[taskIndex];
+    todos.splice(taskIndex, 1);
+    saveTodos(todos);
+
+    console.log('🗑️ Task deleted successfully!');
+    console.log(`✅ Deleted: ${deletedTask.description}`);
+}
+
 // Command parser
 const command = process.argv[2];
 const args = process.argv.slice(3);
@@ -70,6 +99,12 @@ switch (command) {
 
     case 'list':
         listTasks();
+        break;
+
+    case 'delete':
+    case 'remove':
+    case 'rm':
+        deleteTask(args[0]);
         break;
 
     default:
