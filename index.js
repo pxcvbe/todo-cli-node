@@ -113,8 +113,9 @@ switch (command) {
         console.log('Usage:');
         console.log('   todo add <task>    - Add new task');
         console.log('   todo list          - Show all tasks');
+        console.log('   todo delete <id>   - Delete task by ID');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo list');
-        console.log('   todo delete <id>');
+        console.log('   todo delete 1730448000000');
 }
