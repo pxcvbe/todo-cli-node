@@ -34,7 +34,7 @@ node index.js list
 • node index.js remove <id>
 • node index.js rm <id>
 ```
-#### 🗑️ Update / Edit Task:
+#### 🛠️ Update / Edit Task:
 ```bash
 • node index.js update <id> <new description> 
 • node index.js edit <id> <new description> 
