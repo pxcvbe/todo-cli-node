@@ -30,7 +30,9 @@ node index.js list
 ```
 #### 🗑️ Delete Task:
 ```bash
-node index.js delete <id>
+• node index.js delete <id>
+• node index.js remove <id>
+• node index.js rm <id>
 ```
 
 ## Features
