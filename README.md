@@ -22,6 +22,10 @@ node index.js add "Cooking water for 12 minutes"
 ```bash
 node index.js list
 ```
+#### 📋 Complete Task (Mark as Complete):
+```bash
+node index.js done <id>
+```
 #### 🗑️ Delete Task:
 ```bash
 node index.js delete <id>
