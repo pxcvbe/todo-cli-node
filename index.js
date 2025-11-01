@@ -88,6 +88,42 @@ function deleteTask(taskId) {
     console.log(`✅ Deleted: ${deletedTask.description}`);
 }
 
+function completeTask(taskId) {
+    if (!taskId) {
+        console.log('Error: Please povide a task ID!');
+        console.log('   Usage: todo done <id>');
+        return;
+    }
+
+    const id = parseInt(taskId);
+    if (isNaN(id)) {
+        console.log('Error: Invalid task ID! ID must be a number.');
+        return;
+    }
+
+    const todos = loadTodos();
+    const task = todos.find(todo => todo.id === id);
+
+    if (!task) {
+        console.log(`Error: Task with ID ${id} not found!`);
+        console.log('   Use "todo list" to see all tasks.');
+        return;
+    }
+
+    if (task.completed) {
+        console.log('ℹ️ Task is already completed!');
+        console.log(`   Task: ${task.description}`);
+        return;
+    }
+
+    task.completed = true;
+    task.completedAt = new Date().toISOString();
+    saveTodos(todos);
+
+    console.log('✅ Task marked as complete!');
+    console.log(`   ✓ ${task.description}`);
+}
+
 // Command parser
 const command = process.argv[2];
 const args = process.argv.slice(3);
@@ -107,15 +143,26 @@ switch (command) {
     case 'rm':
         deleteTask(args[0]);
         break;
+    
+    case 'done':
+    case 'completed':
+    case 'finish':
+        completeTask(args[0]);
+        break;
 
     default:
+        console.log('------------------------------------------------------------------');
         console.log('📝 Todo CLI - Simple Task Manager\n');
         console.log('Usage:');
-        console.log('   todo add <task>    - Add new task');
-        console.log('   todo list          - Show all tasks');
-        console.log('   todo delete <id>   - Delete task by ID');
+        console.log(' • todo add <task>    - Add new task');
+        console.log(' • todo list          - Show all tasks');
+        console.log(' • todo delete / remove / rm <id>          - Delete task by ID');
+        console.log(' • todo done / completed / finish <id>     - Mark task as complete');
+        console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo list');
+        console.log('   todo done 1730448000000')
         console.log('   todo delete 1730448000000');
+        console.log();
 }
