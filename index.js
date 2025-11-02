@@ -173,7 +173,7 @@ function uncompleteTask(taskId) {
     }
 
     const id = parseInt(taskId);
-    if (!isNaN(id)) {
+    if (isNaN(id)) {
         console.log('Error: Invalid task ID! ID must be a number.');
         return;
     }
@@ -199,6 +199,23 @@ function uncompleteTask(taskId) {
 
     console.log('🔄 Task marked as incomplete!');
     console.log(`   ○ ${task.description}`);
+}
+
+// Function - hapus semua task yang sudah done
+function clearCompleted() {
+    const todos = loadTodos();
+    const completedTasks = todos.filter(todo => todo.completed);
+
+    if (completedTasks.length === 0) {
+        console.log('ℹ️  No completed tasks to clear!');
+        return;
+    }
+
+    const remainingTasks = todos.filter(todo => !todo.completed);
+    saveTodos(remainingTasks);
+
+    console.log(`🧹 Cleared ${completeTask.length} completed task(s)!`);
+    console.log(`   Remaining tasks: ${remainingTasks.length}`);
 }
 
 // Command parser
@@ -239,6 +256,11 @@ switch (command) {
         uncompleteTask(args[0]);
         break;
 
+    case 'clear':
+    case 'clean':
+        clearCompleted();
+        break;
+
     default:
         console.log('------------------------------------------------------------------');
         console.log('📝 Todo CLI - Simple Task Manager\n');
@@ -249,14 +271,15 @@ switch (command) {
         console.log(' • todo done / completed / finish <id>        - Mark task as complete');
         console.log(' • todo undone / uncomplete / incomplete <id> - Mark task as incomplete');
         console.log(' • todo update <id> <new description>         - Update task');
+        console.log(' • todo clear                                 - Delete all completed tasks');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo list');
         console.log('   todo done 1730448000000');
         console.log('   todo undone 1730448000000');
-        console.log('   todo delete 1730448000000');
         console.log('   todo update 1730448000000 "Buy groceries at Indomaret"');
         console.log('   todo delete 1730448000000');
+        console.log('   todo clear');
         console.log();
 }
