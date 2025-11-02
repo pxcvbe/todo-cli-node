@@ -46,6 +46,7 @@ node index.js list
 - ✅ Delete tasks
 - ✅ Mark as complete
 - ✅ Update / Edit tasks
+- [ ] Uncomplete Task - Return Task to Incomplete Status
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
