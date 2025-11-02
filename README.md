@@ -39,11 +39,16 @@ node index.js list
 • node index.js update <id> <new description> 
 • node index.js edit <id> <new description> 
 ```
-#### ⛔ Uncomplete a task:
+#### ⛔ Uncomplete A task:
 ```bash
 • node index.js undone <id>
 • node index.js uncomplete <id>
 • node index.js incomplete <id>
+```
+#### 🧹 Clean or Clear All Completed Tasks:
+```bash
+• node index.js clear
+• node index.js clean
 ```
 
 ## Features

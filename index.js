@@ -271,7 +271,7 @@ switch (command) {
         console.log(' • todo done / completed / finish <id>        - Mark task as complete');
         console.log(' • todo undone / uncomplete / incomplete <id> - Mark task as incomplete');
         console.log(' • todo update <id> <new description>         - Update task');
-        console.log(' • todo clear                                 - Delete all completed tasks');
+        console.log(' • todo clear / clean                         - Delete all completed tasks');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
