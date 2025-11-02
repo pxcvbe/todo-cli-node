@@ -39,6 +39,12 @@ node index.js list
 • node index.js update <id> <new description> 
 • node index.js edit <id> <new description> 
 ```
+#### ⛔ Uncomplete a task:
+```bash
+• node index.js undone <id>
+• node index.js uncomplete <id>
+• node index.js incomplete <id>
+```
 
 ## Features
 - ✅ Add tasks
@@ -46,7 +52,7 @@ node index.js list
 - ✅ Delete tasks
 - ✅ Mark as complete
 - ✅ Update / Edit tasks
-- [ ] Uncomplete task - Return task to incomplete status
+- ✅ Uncomplete task - Return task to incomplete status
 - [ ] Clear completed tasks
 - [ ] Filter tasks
 - [ ] Due dates
