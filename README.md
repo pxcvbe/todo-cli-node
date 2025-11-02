@@ -39,7 +39,7 @@ node index.js list
 • node index.js update <id> <new description> 
 • node index.js edit <id> <new description> 
 ```
-#### ⛔ Uncomplete A task:
+#### ⛔ Uncomplete A Task:
 ```bash
 • node index.js undone <id>
 • node index.js uncomplete <id>
