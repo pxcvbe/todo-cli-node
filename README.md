@@ -59,6 +59,7 @@ node index.js list
 - ✅ Update / Edit tasks
 - ✅ Uncomplete task - Return task to incomplete status
 - ✅ Clear completed tasks
+- [ ] Show stats
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
