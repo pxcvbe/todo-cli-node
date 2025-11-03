@@ -50,6 +50,12 @@ node index.js list
 • node index.js clear
 • node index.js clean
 ```
+#### 📊 Show Statistics Task:
+```bash
+• node index.js stats
+• node index.js statistics
+• node index.js status
+```
 
 ## Features
 - ✅ Add tasks
@@ -59,7 +65,7 @@ node index.js list
 - ✅ Update / Edit tasks
 - ✅ Uncomplete task - Return task to incomplete status
 - ✅ Clear completed tasks
-- [ ] Show stats
+- ✅ Show stats
 - [ ] Filter tasks
 - [ ] Due dates
 - [ ] Priority levels
