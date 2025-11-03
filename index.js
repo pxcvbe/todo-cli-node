@@ -218,6 +218,55 @@ function clearCompleted() {
     console.log(`   Remaining tasks: ${remainingTasks.length}`);
 }
 
+// Function - tampilkan satistik dari total tugas
+function showStats() {
+
+    // Destructuring logic
+    const todos = loadTodos();
+    const total = todos.length;
+    const completed = todos.filter(todo => todo.completed).length;
+    const pending = total - completed;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    console.log('\n📊 Task Statistics\n');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(`📝 Total Tasks:    ${total}`);
+    console.log(`✅ Completed:      ${completed}`);
+    console.log(`⏳ Pending:        ${pending}`);
+    console.log(`📈 Progress:       ${percentage}%`);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+    // Progress bar
+    const barLength = 20;
+    const filledLength = Math.round((percentage / 100) * barLength);
+    const emptyLength = barLength - filledLength;
+    const progressBar = '█'.repeat(filledLength) + '░'.repeat(emptyLength);
+
+    console.log(`\n[${progressBar} ${percentage}%]\n`);
+
+    // Motivational message
+    switch(true) {
+        case (percentage === 100):
+            console.log('🎉 Amazing! All tasks completed!');
+            break;
+        case (percentage >= 75):
+            console.log('💪 Great progress! Keep it up!');
+            break;
+        case (percentage >= 50):
+            console.log("👍 You're halfway there!");
+            break;
+        case (percentage >= 25):
+            console.log('🚀 Good start! Keep going!');
+            break;
+        case (percentage > 0):
+            console.log('🌱 Every journey starts with a single step!');
+            break;
+        default:
+            console.log('💡 Time to start checking off those tasks!');
+        console.log();
+    }
+}
+
 // Command parser
 const command = process.argv[2];
 const args = process.argv.slice(3);
@@ -261,6 +310,12 @@ switch (command) {
         clearCompleted();
         break;
 
+    case 'stats':
+    case 'statistics':
+    case 'status':
+        showStats();
+        break;
+
     default:
         console.log('------------------------------------------------------------------');
         console.log('📝 Todo CLI - Simple Task Manager\n');
@@ -272,6 +327,7 @@ switch (command) {
         console.log(' • todo undone / uncomplete / incomplete <id> - Mark task as incomplete');
         console.log(' • todo update <id> <new description>         - Update task');
         console.log(' • todo clear / clean                         - Delete all completed tasks');
+        console.log(' • todo stats / statistics / status           - Show task statistics');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
@@ -280,6 +336,7 @@ switch (command) {
         console.log('   todo undone 1730448000000');
         console.log('   todo update 1730448000000 "Buy groceries at Indomaret"');
         console.log('   todo delete 1730448000000');
+        console.log('   todo stats');
         console.log('   todo clear');
         console.log();
 }
