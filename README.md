@@ -16,12 +16,12 @@ npm install
 ## Usage (Example)
 #### 🚀 Add Task:
 ```bash
-• node index.js add "Cooking water for 12 minutes"   # Default
+• node index.js add "Cooking water for 12 minutes"      # Default
 
 # Test priority
-• node index.js add "Urgent bug fix" --priority high # Priority -> high
-• node index.js add "Code review" --priority medium  # Priority -> medium
-• node index.js add "Update docs" --priority low     # Priority -> low
+• node index.js add "Urgent bug fix" --priority high    # Priority -> high
+• node index.js add "Code review" --priority medium     # Priority -> medium
+• node index.js add "Update docs" --priority low        # Priority -> low
 ```
 #### 📋 List Task:
 ```bash
