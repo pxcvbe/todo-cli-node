@@ -66,9 +66,9 @@ node index.js list
 - ✅ Uncomplete task - Return task to incomplete status
 - ✅ Clear completed tasks
 - ✅ Show stats
-- [ ] Filter tasks
+- ✅ Filter tasks
 - [ ] Due dates
-- [ ] Priority levels
+- ✅ Priority levels
 - [ ] Categories/Tags
 - [ ] Search tasks
 - [ ] Export/Import
