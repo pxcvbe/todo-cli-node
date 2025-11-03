@@ -16,11 +16,20 @@ npm install
 ## Usage (Example)
 #### 🚀 Add Task:
 ```bash
-node index.js add "Cooking water for 12 minutes"
+• node index.js add "Cooking water for 12 minutes"      # Default
+
+# Test priority
+• node index.js add "Urgent bug fix" --priority high    # Priority -> high
+• node index.js add "Code review" --priority medium     # Priority -> medium
+• node index.js add "Update docs" --priority low        # Priority -> low
 ```
 #### 📋 List Task:
 ```bash
-node index.js list
+• node index.js list               # Show all
+
+# Test filter
+• node index.js list --completed   # Show only completed
+• node index.js list --pending     # Show only pending
 ```
 #### ✅ Complete Task (Mark as Complete):
 ```bash
@@ -66,9 +75,9 @@ node index.js list
 - ✅ Uncomplete task - Return task to incomplete status
 - ✅ Clear completed tasks
 - ✅ Show stats
-- [ ] Filter tasks
+- ✅ Filter tasks
 - [ ] Due dates
-- [ ] Priority levels
+- ✅ Priority levels
 - [ ] Categories/Tags
 - [ ] Search tasks
 - [ ] Export/Import
