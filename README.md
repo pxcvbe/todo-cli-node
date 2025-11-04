@@ -147,18 +147,14 @@ node index.js export
 ## 📁 Data Storage
 Tasks are stored in **``todos.json``** in the project directory. You can backup this file or use the export/import commands.
 
-## Features
-- ✅ Add tasks
-- ✅ List tasks
-- ✅ Delete tasks
-- ✅ Mark as complete
-- ✅ Update / Edit tasks
-- ✅ Uncomplete task - Return task to incomplete status
-- ✅ Clear completed tasks
-- ✅ Show stats
-- ✅ Filter tasks
-- ✅ Due dates
-- ✅ Priority levels
-- ✅ Categories/Tags
-- ✅ Search tasks
-- ✅ Export/Import
+## ✨ Features
+- 📋 **Task Management** - Add, list, update, and delete tasks
+- ✅ **Status Tracking** - Mark tasks as complete or incomplete
+- 🚨 **Priority Levels** - High (🔴), Medium (🟡), Low (🟢)
+- 📅 **Due Date**s - Set deadlines with overdue warnings
+- 🏷️ **Tags/Categories** - Organize tasks by category (work, personal, etc)
+- 🔍 **Search** - Find tasks by keyword
+- 📊 **Statistics** - Track progress with visual progress bar
+- 🧹 **Bulk Actions** - Clear all completed tasks at once
+- 📤 **Export/Import** - Backup and restore your tasks
+- 🗂️ **Filters** - View only completed or pending tasks
