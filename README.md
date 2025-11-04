@@ -158,3 +158,17 @@ Tasks are stored in **``todos.json``** in the project directory. You can backup 
 - 🧹 **Bulk Actions** - Clear all completed tasks at once
 - 📤 **Export/Import** - Backup and restore your tasks
 - 🗂️ **Filters** - View only completed or pending tasks
+
+## ⚠️ Code Quality Issues:
+- **`Monolith structure`** - everything is in a single file, making it difficult to maintain.
+- **`Repeated code`** - not implement DRY principle, duplicated logic for validation and error handling.
+- **`No separation of concerns`** - UI, business logic, and data access are mixed together.
+- **`No input validation layer`**
+- **`Hard to test`** - no unit tests due to the monolith structure
+- **`Magic numbers/strings`** - emojis and messages are hardcoded.
+
+### 💡Future Plans:
+- **Refactor** into a **modular monolith** structure.
+- **Upgrade** with modern libraries, since even though it uses *Node.js*, no depedencies have been installed yet.
+- **Improve** the **UX/UI** output.
+- **Add unit tests** (using *[Vitest](https://vitest.dev/)*).
