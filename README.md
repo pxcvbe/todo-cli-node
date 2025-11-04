@@ -5,6 +5,9 @@ A `feature-rich command-line todo list manager` built with `Node.js`. Stay organ
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Jetbrains+Mono&size=14&pause=1000&color=0DBBAD&width=900&lines=Created+By%3A+Ivan.K)](https://git.io/typing-svg)
 ---
 
+### The Program Looks Like
+<img width="876" height="586" alt="image" src="https://github.com/user-attachments/assets/5f1a0f52-0d8e-474a-b68a-24e6e1bf8427" />
+
 ### ⿻ Clone Repo
 ```bash
 git clone https://github.com/pxcvbe/todo-cli-node.git
