@@ -28,6 +28,7 @@ function addTask(description) {
     // Parse priority flag
     let priority = 'medium';
     let cleanDescription = description.trim();
+    let dueDate = null;
 
     // Match priority match dengan regex
     const priorityMatch = description.match(/--priority\s+(high|medium|low)/i);
@@ -36,12 +37,20 @@ function addTask(description) {
         cleanDescription = description.replace(/--priority\s+(high|medium|low)/i, '').trim();
     }
 
+    // Parse due date flag dengan regex
+    const dueDateMatch = description.match(/--due\s+(\d{4}-\d{2}-\d{2})/);
+    if (dueDateMatch) {
+        dueDate = dueDateMatch[1];
+        cleanDescription = cleanDescription.replace(/--due\s+\d{4}-\d{2}-\d{2}/, '').trim();
+    }
+
     const todos = loadTodos();
     const newTodo = {
         id: Date.now(),
         description: cleanDescription,
         completed: false,
         priority: priority,
+        dueDate: dueDate,
         createdAt: new Date().toISOString()
     };
 
@@ -51,9 +60,12 @@ function addTask(description) {
     const priorityEmoji = priority === 'high' ? '🔴' : priority === 'medium' ? '🟡' : '🟢';
 
     console.log("✅ Task added successfully!");
-    console.log(`ID: ${newTodo.id}`);
-    console.log(`Task: ${newTodo.description}`);
-    console.log(`Task: ${priorityEmoji} ${priority.toUpperCase()}`);
+    console.log(`   ID: ${newTodo.id}`);
+    console.log(`   Task: ${newTodo.description}`);
+    console.log(`   Priority: ${priorityEmoji} ${priority.toUpperCase()}`);
+    if (dueDate) {
+        console.log(`   Due Date: 📅 ${dueDate}`);
+    }
 }
 
 // Function - list tugas
@@ -92,7 +104,17 @@ function listTasks() {
         const priority = todo.priority || 'medium';
         const priorityEmoji = priority === 'high' ? '🔴' : priority === 'medium' ? '🟡' : '🟢';
 
-        console.log(`${index + 1}. [${status}] ${priorityEmoji} ${todo.description} (ID: ${todo.id})`);
+        let taskLine = `${index + 1}. [${status} ${priorityEmoji} ${todo.description}]`;
+
+        if (todo.dueDate) {
+            const today = new Date().toISOString().split('T')[0];
+            const isOverdue = todo.dueDate < today && !todo.completed;
+            const dueDateEmoji = isOverdue ? '⚠️' : '📅';
+            taskLine += ` ${dueDateEmoji} ${todo.dueDate}`;
+        }
+
+        taskLine += ` (ID: ${todo.id})`;
+        console.log(taskLine);
     });
     console.log('');
 }
@@ -257,6 +279,94 @@ function clearCompleted() {
     console.log(`   Remaining tasks: ${remainingTasks.length}`);
 }
 
+// Function - tampilkan satistik dari total tugas
+function showStats() {
+
+    // Destructuring logic
+    const todos = loadTodos();
+    const total = todos.length;
+    const completed = todos.filter(todo => todo.completed).length;
+    const pending = total - completed;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+    console.log('\n📊 Task Statistics\n');
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+    console.log(`📝 Total Tasks:    ${total}`);
+    console.log(`✅ Completed:      ${completed}`);
+    console.log(`⏳ Pending:        ${pending}`);
+    console.log(`📈 Progress:       ${percentage}%`);
+    console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+
+    // Progress bar
+    const barLength = 20;
+    const filledLength = Math.round((percentage / 100) * barLength);
+    const emptyLength = barLength - filledLength;
+    const progressBar = '█'.repeat(filledLength) + '░'.repeat(emptyLength);
+
+    console.log(`\n[${progressBar} ${percentage}%]\n`);
+
+    // Motivational message
+    switch(true) {
+        case (percentage === 100):
+            console.log('🎉 Amazing! All tasks completed!');
+            break;
+        case (percentage >= 75):
+            console.log('💪 Great progress! Keep it up!');
+            break;
+        case (percentage >= 50):
+            console.log("👍 You're halfway there!");
+            break;
+        case (percentage >= 25):
+            console.log('🚀 Good start! Keep going!');
+            break;
+        case (percentage > 0):
+            console.log('🌱 Every journey starts with a single step!');
+            break;
+        default:
+            console.log('💡 Time to start checking off those tasks!');
+        console.log();
+    }
+}
+
+function searchTasks(keyword) {
+    if (!keyword || keyword.trim() === '') {
+        console.log('Error: Please provide a search keyword!');
+        console.log('   Usage: todo search <keyword>');
+        return;
+    }
+
+    const todos = loadTodos();
+    const searchTerm = keyword.toLowerCase();
+    const results = todos.filter(todo =>
+        todo.description.toLowerCase().includes(searchTerm)
+    );
+
+    if (results.length === 0) {
+        console.log(`🔍 No tasks found matching "${keyword}"`);
+        return;
+    }
+
+    console.log(`\n🔍 Found ${results.length} task(s) matching "${keyword}:\n`);
+    results.forEach((todo, index) => {
+        const status = todo.completed ? '✓' : '○';
+        const priority = todo.priority || 'medium';
+        const priorityEmoji = priority === 'high' ? '🔴' : priority === 'medium' ? '🟡' : '🟢';
+
+        let taskLine = `${index + 1}. [${status}] ${priorityEmoji} ${todo.description}`;
+
+        if (todo.dueDate) {
+            const today = new Date().toISOString().split('T')[0];
+            const isOverdue = todo.dueDate < today && !todo.completed;
+            const dueDateEmoji = isOverdue ? '⚠️' : '📅';
+            taskLine += ` ${dueDateEmoji} ${todo.dueDate}`;
+        }
+
+        taskLine += ` (ID: ${todo.id})`;
+        console.log(taskLine);
+    });
+    console.log(``);
+}
+
 // Command parser
 const command = process.argv[2];
 const args = process.argv.slice(3);
@@ -300,32 +410,50 @@ switch (command) {
         clearCompleted();
         break;
 
+    case 'stats':
+    case 'statistics':
+    case 'status':
+        showStats();
+        break;
+
+    case 'search':
+    case 'find':
+        const searchKeyword = args.join(' ');
+        searchTasks(searchKeyword);
+        break;
+
     default:
         console.log('------------------------------------------------------------------');
         console.log('📝 Todo CLI - Simple Task Manager\n');
         console.log('Usage:');
         console.log(' • todo add <task>                              - Add new task');
-        console.log(' • todo add <task> --priority <high|medium|low> - Add new task');
+        console.log(' • todo add <task> --priority <high|medium|low> - Add task with priority');
+        console.log(' • todo add <task> --due <YYYY-MM-DD>           - Add task with due date');
         console.log(' • todo list                                    - Show all tasks');
-        console.log(' • todo list --completed                        - Show all tasks');
-        console.log(' • todo list --pending                          - Show all tasks');
+        console.log(' • todo list --completed                        - Show only completed tasks');
+        console.log(' • todo list --pending                          - Show only pending tasks');
+        console.log(' • todo search / find <keyword>                 - Search tasks by keyword');
         console.log(' • todo delete / remove / rm <id>               - Delete task by ID');
         console.log(' • todo done / completed / finish <id>          - Mark task as complete');
         console.log(' • todo undone / uncomplete / incomplete <id>   - Mark task as incomplete');
         console.log(' • todo update <id> <new description>           - Update task');
         console.log(' • todo clear / clean                           - Delete all completed tasks');
+        console.log(' • todo stats / statistics / status             - Show task statistics');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
         console.log('   todo add "Fix bugs       - project node.js" --priority high');
         console.log('   todo add "Test app       - project node.js" --priority high');
         console.log('   todo add "Changelog docs - project node.js" --priority low');
+        console.log('   todo add "Fix bugs       - project node.js" --priority high --due 2025-11-04');
         console.log('   todo list');
         console.log('   todo list --completed');
         console.log('   todo list --pending');
+        console.log('   todo search "bug"');
         console.log('   todo done 1730448000000');
         console.log('   todo undone 1730448000000');
         console.log('   todo update 1730448000000 "Buy groceries at Indomaret"');
+        console.log('   todo stats');
         console.log('   todo delete 1730448000000');
         console.log('   todo clear');
         console.log();
