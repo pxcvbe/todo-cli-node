@@ -22,6 +22,10 @@ npm install
 • node index.js add "Urgent bug fix" --priority high    # Priority -> high
 • node index.js add "Code review" --priority medium     # Priority -> medium
 • node index.js add "Update docs" --priority low        # Priority -> low
+
+# Test due date
+node index.js add "Submit report" --due 2024-12-15
+node index.js add "Fix critical bug" --priority high --due 2024-11-05
 ```
 #### 📋 List Task:
 ```bash
@@ -45,8 +49,8 @@ npm install
 ```
 #### 🛠️ Update / Edit Task:
 ```bash
-• node index.js update <id> <new description> 
-• node index.js edit <id> <new description> 
+• node index.js update <id> "<new description>"
+• node index.js edit <id> "<new description>"
 ```
 #### ⛔ Uncomplete A Task:
 ```bash
@@ -65,6 +69,10 @@ npm install
 • node index.js statistics
 • node index.js status
 ```
+#### 🔎 Search Task:
+```bash
+• node index.js search "<keywords>"
+```
 
 ## Features
 - ✅ Add tasks
@@ -76,8 +84,8 @@ npm install
 - ✅ Clear completed tasks
 - ✅ Show stats
 - ✅ Filter tasks
-- [ ] Due dates
+- ✅ Due dates
 - ✅ Priority levels
 - [ ] Categories/Tags
-- [ ] Search tasks
+- ✅ Search tasks
 - [ ] Export/Import
