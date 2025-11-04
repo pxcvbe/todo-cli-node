@@ -164,7 +164,7 @@ function deleteTask(taskId) {
 // Function - tugas selesai (dengan status ditandai ✓)
 function completeTask(taskId) {
     if (!taskId) {
-        console.error('Error: Please povide a task ID!');
+        console.error('Error: Please provide a task ID!');
         console.log('   Usage: todo done <id>');
         return;
     }
@@ -287,7 +287,7 @@ function clearCompleted() {
     const remainingTasks = todos.filter(todo => !todo.completed);
     saveTodos(remainingTasks);
 
-    console.log(`🧹 Cleared ${completeTask.length} completed task(s)!`);
+    console.log(`🧹 Cleared ${completedTasks.length} completed task(s)!`);
     console.log(`   Remaining tasks: ${remainingTasks.length}`);
 }
 
@@ -429,7 +429,7 @@ function importTasks(filename) {
         const mergedTodos = [...currentTodos, ...importedTodos];
         saveTodos(mergedTodos);
 
-        console.log('📥 Tasks imported sucessfulyy!');
+        console.log('📥 Tasks imported successfully!');
         console.log(`   Imported: ${importedTodos.length} tasks`);
         console.log(`   Total tasks now: ${mergedTodos.length}`);
     } catch (error) {
