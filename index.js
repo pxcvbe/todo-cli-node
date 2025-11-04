@@ -29,6 +29,7 @@ function addTask(description) {
     let priority = 'medium';
     let cleanDescription = description.trim();
     let dueDate = null;
+    let tag = null;
 
     // Match priority match dengan regex
     const priorityMatch = description.match(/--priority\s+(high|medium|low)/i);
@@ -44,6 +45,13 @@ function addTask(description) {
         cleanDescription = cleanDescription.replace(/--due\s+\d{4}-\d{2}-\d{2}/, '').trim();
     }
 
+    // Parse tag flag dengan regex
+    const tagMatch = description.match(/--tag\s+(\w+)/i);
+    if (tagMatch) {
+        tag = tagMatch[1].toLowerCase();
+        cleanDescription = cleanDescription.replace(/--tag\s+\w+/i, '').trim();
+    }
+
     const todos = loadTodos();
     const newTodo = {
         id: Date.now(),
@@ -51,6 +59,7 @@ function addTask(description) {
         completed: false,
         priority: priority,
         dueDate: dueDate,
+        tag: tag,
         createdAt: new Date().toISOString()
     };
 
@@ -65,6 +74,9 @@ function addTask(description) {
     console.log(`   Priority: ${priorityEmoji} ${priority.toUpperCase()}`);
     if (dueDate) {
         console.log(`   Due Date: 📅 ${dueDate}`);
+    }
+    if (tag) {
+        console.log(`   Tag: 🏷️ ${tag}`);
     }
 }
 
@@ -122,21 +134,21 @@ function listTasks() {
 // Function - hapus tugas
 function deleteTask(taskId) {
     if (!taskId) {
-        console.log('Error: Please provide a task ID!');
+        console.error('Error: Please provide a task ID!');
         console.log('   Usage: todo delete <id>');
         return;
     }
 
     const id = parseInt(taskId);
     if (isNaN(id)) {
-        console.log('Error: Invalid task ID! ID must be a number.');
+        console.error('Error: Invalid task ID! ID must be a number.');
     }
 
     const todos = loadTodos();
     const taskIndex = todos.findIndex(todo => todo.id === id);
 
     if (taskIndex === -1) {
-        console.log(`Error: Task with ID ${id} not found!`);
+        console.error(`Error: Task with ID ${id} not found!`);
         console.log('   Use "todo list" to see all tasks.');
         return;
     }
@@ -152,14 +164,14 @@ function deleteTask(taskId) {
 // Function - tugas selesai (dengan status ditandai ✓)
 function completeTask(taskId) {
     if (!taskId) {
-        console.log('Error: Please povide a task ID!');
+        console.error('Error: Please povide a task ID!');
         console.log('   Usage: todo done <id>');
         return;
     }
 
     const id = parseInt(taskId);
     if (isNaN(id)) {
-        console.log('Error: Invalid task ID! ID must be a number.');
+        console.error('Error: Invalid task ID! ID must be a number.');
         return;
     }
 
@@ -167,7 +179,7 @@ function completeTask(taskId) {
     const task = todos.find(todo => todo.id === id);
 
     if (!task) {
-        console.log(`Error: Task with ID ${id} not found!`);
+        console.error(`Error: Task with ID ${id} not found!`);
         console.log('   Use "todo list" to see all tasks.');
         return;
     }
@@ -189,20 +201,20 @@ function completeTask(taskId) {
 // Function - memperbarui / mengubah tugas
 function updateTask(taskId, newDescription) {
     if (!taskId) {
-        console.log('Error: Please provide a task ID!');
+        console.error('Error: Please provide a task ID!');
         console.log('   Usage: todo update <id> <new description>');
         return;
     }
 
     if (!newDescription || newDescription.trim() === '') {
-        console.log('Error: New description cannot be empty!');
+        console.error('Error: New description cannot be empty!');
         console.log('   Usage: todo update <id> <new description>');
         return;
     }
 
     const id = parseInt(taskId);
     if (isNaN(id)) {
-        console.log('Error: Invalid task ID! ID must be a number.');
+        console.error('Error: Invalid task ID! ID must be a number.');
         return;
     }
 
@@ -210,7 +222,7 @@ function updateTask(taskId, newDescription) {
     const task = todos.find(todo => todo.id === id);
 
     if (!task) {
-        console.log(`Error: Task with ID ${id} not found!`);
+        console.error(`Error: Task with ID ${id} not found!`);
         console.log('   Use "todo list" to see all tasks.');
         return;
     }
@@ -228,14 +240,14 @@ function updateTask(taskId, newDescription) {
 // Function - kembalikan task ke status 'incomplete'
 function uncompleteTask(taskId) {
     if (!taskId) {
-        console.log('Error: Please provide a task ID!');
+        console.error('Error: Please provide a task ID!');
         console.log('   Usage: todo undone <id>');
         return;
     }
 
     const id = parseInt(taskId);
     if (isNaN(id)) {
-        console.log('Error: Invalid task ID! ID must be a number.');
+        console.error('Error: Invalid task ID! ID must be a number.');
         return;
     }
 
@@ -243,7 +255,7 @@ function uncompleteTask(taskId) {
     const task = todos.find(todo => todo.id === id);
 
     if (!task) {
-        console.log(`Error: Task with ID ${id} not found!`);
+        console.error(`Error: Task with ID ${id} not found!`);
         console.log('   Use "todo list" to see all tasks.');
         return;
     }
@@ -331,7 +343,7 @@ function showStats() {
 // Function - cari tugas
 function searchTasks(keyword) {
     if (!keyword || keyword.trim() === '') {
-        console.log('Error: Please provide a search keyword!');
+        console.error('Error: Please provide a search keyword!');
         console.log('   Usage: todo search <keyword>');
         return;
     }
@@ -366,6 +378,64 @@ function searchTasks(keyword) {
         console.log(taskLine);
     });
     console.log(``);
+}
+
+// Function - export file json
+function exportTasks() {
+    const todos = loadTodos();
+
+    if (todos.length === 0) {
+        console.log('ℹ️ No tasks to export!');
+        return;
+    }
+
+    const timestamp = new Date().toISOString().split('T')[0];
+    const filename = `todos-export-${timestamp}.json`;
+    const exportPath = path.join(__dirname, filename);
+
+    fs.writeFileSync(exportPath, JSON.stringify(todos, null, 2));
+
+    console.log('📤 Tasks exported successfully!');
+    console.log(`   File: ${filename}`);
+    console.log(`   Location: ${exportPath}`);
+    console.log(`   Total tasks: ${todos.length}`);
+}
+
+function importTasks(filename) {
+    if (!filename) {
+        console.error('Error: Please provide a filename!');
+        console.log('   Usage: todo import <filename>');
+        return;
+    }
+
+    const importPath = path.join(__dirname, filename);
+
+    if (!fs.existsSync(importPath)) {
+        console.error(`Error: File "${filename}" not found!`);
+        console.log(`   Make sure the file is in: ${__dirname}`);
+        return;
+    }
+
+    try {
+        const data = fs.readFileSync(importPath, 'utf-8');
+        const importedTodos = JSON.parse(data);
+
+        if (!Array.isArray(importedTodos)) {
+            console.log('Error: Invalid file format! Expected an array of tasks');
+            return;
+        }
+
+        const currentTodos = loadTodos();
+        const mergedTodos = [...currentTodos, ...importedTodos];
+        saveTodos(mergedTodos);
+
+        console.log('📥 Tasks imported sucessfulyy!');
+        console.log(`   Imported: ${importedTodos.length} tasks`);
+        console.log(`   Total tasks now: ${mergedTodos.length}`);
+    } catch (error) {
+        console.log('Error: Failed to import tasks!');
+        console.log(`${error.message}`);
+    }
 }
 
 // Command parser
@@ -423,9 +493,17 @@ switch (command) {
         searchTasks(searchKeyword);
         break;
 
+    case 'export':
+        exportTasks();
+        break;
+    
+    case 'import':
+        importTasks(args[0]);
+        break;
+
     default:
         console.log('------------------------------------------------------------------');
-        console.log('📝 Todo CLI - Simple Task Manager\n');
+        console.log('[-] Todo CLI - Simple Task Manager\n');
         console.log('Usage:');
         console.log(' • todo add <task>                              - Add new task');
         console.log(' • todo add <task> --priority <high|medium|low> - Add task with priority');
@@ -440,6 +518,8 @@ switch (command) {
         console.log(' • todo update <id> <new description>           - Update task');
         console.log(' • todo clear / clean                           - Delete all completed tasks');
         console.log(' • todo stats / statistics / status             - Show task statistics');
+        console.log(' • todo export                                  - Export tasks to JSON file');
+        console.log(' • todo import <file>                           - Import tasks from JSON file');
         console.log('------------------------------------------------------------------');
         console.log('\nExample:');
         console.log('   todo add "Buy groceries in Alfamidi"');
@@ -447,6 +527,7 @@ switch (command) {
         console.log('   todo add "Test app       - project node.js" --priority high');
         console.log('   todo add "Changelog docs - project node.js" --priority low');
         console.log('   todo add "Fix bugs       - project node.js" --priority high --due 2025-11-04');
+        console.log('   todo add "Fix bug endpoint - project express.js" --priority high --due 2025-11-04 --tag work');
         console.log('   todo list');
         console.log('   todo list --completed');
         console.log('   todo list --pending');
@@ -457,5 +538,7 @@ switch (command) {
         console.log('   todo stats');
         console.log('   todo delete 1730448000000');
         console.log('   todo clear');
+        console.log('   todo export');
+        console.log('   todo import todos-export-2025-11-04.json');
         console.log();
 }
