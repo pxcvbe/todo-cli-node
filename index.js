@@ -380,7 +380,7 @@ function searchTasks(keyword) {
     console.log(``);
 }
 
-// Function - export file json
+// Function - export file dengan format .json
 function exportTasks() {
     const todos = loadTodos();
 
@@ -401,6 +401,7 @@ function exportTasks() {
     console.log(`   Total tasks: ${todos.length}`);
 }
 
+// Function - import file di path yang sama dengan format .json
 function importTasks(filename) {
     if (!filename) {
         console.error('Error: Please provide a filename!');
